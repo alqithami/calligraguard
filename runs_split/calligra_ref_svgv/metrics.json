@@ -1,0 +1,23 @@
+{
+  "n": 1690,
+  "missing_pred": 0,
+  "detection": {
+    "auroc": 0.7671967455621301,
+    "f1@0.5": 0.6646913580246914,
+    "precision@0.5": 1.0,
+    "recall@0.5": 0.4977810650887574
+  },
+  "localization": {
+    "dice": 0.4179791795179665,
+    "miou": 0.3991775250385872
+  },
+  "classification": {
+    "top1": 0.7958579881656804,
+    "top3": 0.9467455621301775
+  },
+  "attribution": {
+    "path_f1": 0.9999999995
+  },
+  "gt": "DATASET_SPLITS/test/meta.jsonl",
+  "pred": "runs_split/calligra_ref_svgv/pred.jsonl"
+}

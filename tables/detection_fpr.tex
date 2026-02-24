@@ -1,0 +1,16 @@
+\begin{table}[t]
+\centering
+\small
+\begin{tabular}{lccc}
+\toprule
+Method & AUROC$\uparrow$ & Recall@1\%FPR$\uparrow$ & Recall@5\%FPR$\uparrow$ \\
+\midrule
+patchcore\_like & 0.506 & 0.139 & 0.209 \\
+template\_diff & 0.707 & 0.414 & 0.414 \\
+unet & 0.565 & 0.001 & 0.001 \\
+unet\_scoremax & 0.564 & 0.000 & 0.000 \\
+\bottomrule
+\end{tabular}
+\caption{Detection recall at fixed false-positive rates on clean samples (strict thresholding).}
+\label{tab:detection_fpr}
+\end{table}

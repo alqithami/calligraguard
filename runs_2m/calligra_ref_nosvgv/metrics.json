@@ -1,0 +1,23 @@
+{
+  "n": 247996,
+  "missing_pred": 0,
+  "detection": {
+    "auroc": 0.7951435014657792,
+    "f1@0.5": 0.6619709000953631,
+    "precision@0.5": 1.0,
+    "recall@0.5": 0.4947358021903579
+  },
+  "localization": {
+    "dice": 0.3712257743133997,
+    "miou": 0.3482554360270337
+  },
+  "classification": {
+    "top1": 0.4744411200180648,
+    "top3": 0.8523013812050731
+  },
+  "attribution": {
+    "path_f1": 0.9999999995000001
+  },
+  "gt": "DATASET_2M/meta.jsonl",
+  "pred": "runs_2m/calligra_ref_nosvgv/pred.jsonl"
+}

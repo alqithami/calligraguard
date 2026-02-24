@@ -1,0 +1,22 @@
+
+\begin{table*}[t]
+\centering
+\small
+\begin{tabular}{@{}lccccccc@{}}
+\toprule
+Method & AUROC$\uparrow$ & F1$\uparrow$ & mIoU$\uparrow$ & Dice$\uparrow$ & Top-1$\uparrow$ & Top-3$\uparrow$ & Path-F1$\uparrow$ \\
+\midrule
+calligra\_ref & \textbf{0.769} & 0.672 & 0.353 & 0.373 & \textbf{0.574} & 0.847 & \textbf{1.000} \\
+calligra\_ref\_nosvgv & 0.762 & 0.643 & 0.354 & 0.374 & 0.469 & 0.847 & \textbf{1.000} \\
+calligra\_ref\_svgv & 0.674 & 0.671 & 0.338 & 0.363 & 0.533 & \textbf{0.873} & \textbf{1.000} \\
+calligra\_uni\_nosvgv & 0.437 & 0.705 & 0.083 & 0.111 & 0.454 & 0.853 & \textbf{1.000} \\
+calligra\_uni\_svgv & 0.437 & 0.694 & 0.083 & 0.110 & 0.456 & 0.854 & \textbf{1.000} \\
+patchcore\_like & 0.506 & 0.000 & 0.017 & 0.027 & 0.000 & 0.000 & 0.000 \\
+template\_diff & 0.707 & 0.003 & \textbf{0.413} & \textbf{0.413} & 0.000 & 0.000 & 0.000 \\
+unet & 0.435 & 0.709 & 0.064 & 0.103 & 0.000 & 0.000 & 0.000 \\
+unet\_scoremax & 0.436 & \textbf{0.715} & 0.064 & 0.103 & 0.000 & 0.000 & 0.000 \\
+\bottomrule
+\end{tabular}
+\caption{Main results (auto-generated).}
+\label{tab:main_results_auto}
+\end{table*}

@@ -1,0 +1,23 @@
+{
+  "n": 1690,
+  "missing_pred": 0,
+  "detection": {
+    "auroc": 0.7289201183431953,
+    "f1@0.5": 0.0029542097488921715,
+    "precision@0.5": 1.0,
+    "recall@0.5": 0.0014792899408284023
+  },
+  "localization": {
+    "dice": 0.45784023668428986,
+    "miou": 0.457840236682189
+  },
+  "classification": {
+    "top1": 0.0,
+    "top3": 0.0
+  },
+  "attribution": {
+    "path_f1": 0.0
+  },
+  "gt": "DATASET_SPLITS/test/meta.jsonl",
+  "pred": "runs_split/template_diff/pred.jsonl"
+}

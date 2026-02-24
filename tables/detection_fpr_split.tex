@@ -1,0 +1,14 @@
+\begin{table}[t]
+\centering
+\small
+\begin{tabular}{lccc}
+\toprule
+Method & AUROC$\uparrow$ & Recall@1\%FPR$\uparrow$ & Recall@5\%FPR$\uparrow$ \\
+\midrule
+template\_diff & 0.729 & 0.458 & 0.458 \\
+unet & 0.560 & 0.004 & 0.007 \\
+\bottomrule
+\end{tabular}
+\caption{Detection recall at fixed false-positive rates on clean samples (font-held-out test split; strict thresholding).}
+\label{tab:detection_fpr_split}
+\end{table}
