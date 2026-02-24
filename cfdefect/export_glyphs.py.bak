@@ -1,0 +1,107 @@
+from __future__ import annotations
+
+import argparse
+from pathlib import Path
+from typing import List
+from fontTools.ttLib import TTFont
+from fontTools.pens.svgPathPen import SVGPathPen
+from fontTools.pens.boundsPen import BoundsPen
+
+def parse_chars_file(path: Path) -> List[int]:
+    """
+    Accepts:
+      - lines like "U+0628"
+      - literal characters (single char per line)
+      - hex codepoint like "0628"
+    Returns list of codepoints (ints).
+    """
+    cps: List[int] = []
+    for raw in path.read_text(encoding="utf-8").splitlines():
+        s = raw.strip()
+        if not s or s.startswith("#"):
+            continue
+        if s.upper().startswith("U+"):
+            cps.append(int(s[2:], 16))
+        elif len(s) == 1:
+            cps.append(ord(s))
+        else:
+            cps.append(int(s, 16))
+    return cps
+
+def glyph_to_svg(font: TTFont, glyph_name: str, fill: str = "black") -> str:
+    glyph_set = font.getGlyphSet()
+    glyph = glyph_set[glyph_name]
+    # bounds
+    bpen = BoundsPen(glyph_set)
+    glyph.draw(bpen)
+    bounds = bpen.bounds  # (xMin, yMin, xMax, yMax) or None
+    if bounds is None:
+        bounds = (0, 0, 0, 0)
+    xMin, yMin, xMax, yMax = bounds
+    # path commands
+    pen = SVGPathPen(glyph_set)
+    glyph.draw(pen)
+    d = pen.getCommands() or ""
+    # Add small padding in font units
+    pad = 20
+    vb_x = xMin - pad
+    vb_y = yMin - pad
+    vb_w = (xMax - xMin) + 2 * pad
+    vb_h = (yMax - yMin) + 2 * pad
+
+    # Flip Y from font coordinates (y up) to SVG coords (y down)
+    # Approach: scale(1,-1) then translate down by -(yMin+yMax)?? We apply translate(0, yMax) then scale.
+    transform = f"translate(0,{yMax}) scale(1,-1)"
+
+    svg = f"""<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="{vb_x} {vb_y} {vb_w} {vb_h}">
+  <path d="{d}" fill="{fill}" transform="{transform}"/>
+</svg>
+"""
+    return svg
+
+def export_font(font_path: Path, out_dir: Path, codepoints: List[int]) -> int:
+    font = TTFont(str(font_path))
+    cmap = font.getBestCmap() or {}
+    font_id = font_path.stem
+    exported = 0
+    for cp in codepoints:
+        gname = cmap.get(cp)
+        if not gname:
+            continue
+        svg = glyph_to_svg(font, gname)
+        out_path = out_dir / font_id / f"U+{cp:04X}.svg"
+        out_path.parent.mkdir(parents=True, exist_ok=True)
+        out_path.write_text(svg, encoding="utf-8")
+        exported += 1
+    return exported
+
+def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--fonts_dir", type=str, required=True)
+    ap.add_argument("--out_dir", type=str, required=True)
+    ap.add_argument("--chars_file", type=str, required=True)
+    ap.add_argument("--font_glob", type=str, default="*.ttf")
+    args = ap.parse_args()
+
+    fonts_dir = Path(args.fonts_dir)
+    out_dir = Path(args.out_dir)
+    out_dir.mkdir(parents=True, exist_ok=True)
+
+    cps = parse_chars_file(Path(args.chars_file))
+    font_paths = sorted(fonts_dir.glob(args.font_glob))
+    if not font_paths:
+        raise SystemExit(f"No fonts matched {args.font_glob} in {fonts_dir}")
+
+    total = 0
+    for fp in font_paths:
+        try:
+            n = export_font(fp, out_dir, cps)
+            total += n
+            print(f"[export] {fp.name}: {n} glyphs")
+        except Exception as e:
+            print(f"[export][WARN] {fp}: {e}")
+    print(f"[export] total exported glyph SVGs: {total}")
+
+if __name__ == "__main__":
+    main()

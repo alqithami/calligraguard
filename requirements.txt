@@ -1,0 +1,12 @@
+numpy
+scipy
+scikit-learn
+scikit-image
+opencv-python
+Pillow
+fonttools
+cairosvg
+torch
+torchvision
+tqdm
+pyyaml

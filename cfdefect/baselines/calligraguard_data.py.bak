@@ -1,0 +1,157 @@
+from __future__ import annotations
+
+from dataclasses import dataclass
+from pathlib import Path
+from typing import Dict, Any, List, Tuple, Optional
+
+import numpy as np
+import torch
+from torch.utils.data import Dataset
+from PIL import Image
+
+from ..utils.io import read_jsonl
+
+def _resize_u8(arr: np.ndarray, size: int, is_mask: bool = False) -> np.ndarray:
+    im = Image.fromarray(arr)
+    resample = Image.NEAREST if is_mask else Image.BILINEAR
+    im = im.resize((size, size), resample=resample)
+    return np.array(im)
+
+@dataclass
+class MetaIndex:
+    defect_vocab: List[str]          # includes "clean" at index 0
+    defect_to_id: Dict[str, int]
+    max_path_id: int
+
+def scan_meta(meta_path: Path, max_path_cap: int = 1024) -> MetaIndex:
+    """Scan meta.jsonl to build a defect vocabulary and max path id."""
+    defect_types: set[str] = set()
+    max_pid = 0
+    for r in read_jsonl(meta_path):
+        for d in r.get("defects", []) or []:
+            t = d.get("type")
+            if t:
+                defect_types.add(str(t))
+            for pid in (d.get("path_ids", []) or []):
+                try:
+                    max_pid = max(max_pid, int(pid))
+                except Exception:
+                    continue
+    vocab = ["clean"] + sorted(defect_types)
+    defect_to_id = {t:i for i,t in enumerate(vocab)}
+    max_path_id = min(max_pid + 1, int(max_path_cap))
+    return MetaIndex(defect_vocab=vocab, defect_to_id=defect_to_id, max_path_id=max_path_id)
+
+class CFDefectCalligraDataset(Dataset):
+    """
+    Returns:
+      x: (C,H,W) float32 in [0,1]
+      svgv: (1,S,S) float32 in [0,1] or None
+      y_mask: (1,H,W) float32 {0,1}
+      y_type: int64 (0=clean)
+      y_paths: (P,) float32 multi-hot (P=max_path_id)
+      sample_id: str
+      orig_hw: (H0,W0) ints (before resize)
+      meta: raw record
+    """
+    def __init__(self,
+                 root: Path,
+                 index: MetaIndex,
+                 mode: str = "universal",
+                 size: int = 256,
+                 use_svgv: bool = True,
+                 svgv_dirname: str = "svgv",
+                 clean_svgv_dirname: str = "clean_svgv"):
+        self.root = Path(root)
+        self.index = index
+        self.mode = str(mode)
+        assert self.mode in ("universal", "referenced"), "mode must be universal or referenced"
+        self.size = int(size)
+        self.use_svgv = bool(use_svgv)
+        self.svgv_dirname = svgv_dirname
+        self.clean_svgv_dirname = clean_svgv_dirname
+
+        self.recs: List[Dict[str, Any]] = list(read_jsonl(self.root / "meta.jsonl"))
+
+    def __len__(self) -> int:
+        return len(self.recs)
+
+    def _load_gray(self, rel_path: str) -> np.ndarray:
+        p = self.root / rel_path
+        arr = np.array(Image.open(p).convert("L"))
+        return arr
+
+    def _svgv_path(self, rel_svg: str, clean: bool) -> Path:
+        # rel_svg like "svg/Font/U+0628__spur_000__abcd.svg"
+        rel = Path(rel_svg)
+        base = rel.with_suffix(".png").name
+        subdir = self.clean_svgv_dirname if clean else self.svgv_dirname
+        return self.root / subdir / rel.parent.name / base
+
+    def __getitem__(self, idx: int):
+        r = self.recs[idx]
+        img0 = self._load_gray(r["image_path"])
+        mask0 = self._load_gray(r["mask_path"])
+
+        h0, w0 = img0.shape[:2]
+
+        # Resize to model size
+        img = _resize_u8(img0, self.size, is_mask=False).astype(np.float32) / 255.0
+        mask = _resize_u8(mask0, self.size, is_mask=True)
+        mask = (mask > 0).astype(np.float32)
+
+        # Build input channels
+        chs: List[np.ndarray] = []
+        if self.mode == "universal":
+            chs.append(img)
+        else:
+            # referenced: include clean image and diffs
+            ref0 = self._load_gray(r["clean_image_path"])
+            ref = _resize_u8(ref0, self.size, is_mask=False).astype(np.float32) / 255.0
+            chs.append(img)
+            chs.append(ref)
+            chs.append(np.abs(img - ref))
+            chs.append(img - ref)
+
+        x = np.stack(chs, axis=0)  # (C,H,W)
+        x_t = torch.from_numpy(x)
+
+        # Optional SVG-V conditioning
+        svgv_t: Optional[torch.Tensor] = None
+        if self.use_svgv:
+            # If file missing, fall back to loading clean_image resized to 64 and treat it as svgv
+            svgv_path = self._svgv_path(r["svg_path"], clean=False)
+            if not svgv_path.exists():
+                # fallback: use a small downsample of the input image
+                small = Image.fromarray(img0).resize((64,64), resample=Image.BILINEAR)
+                svgv = np.array(small).astype(np.float32)/255.0
+            else:
+                svgv0 = np.array(Image.open(svgv_path).convert("L"))
+                svgv = svgv0.astype(np.float32)/255.0
+            svgv_t = torch.from_numpy(svgv).unsqueeze(0)  # (1,S,S)
+
+        # Targets
+        is_def = bool(r.get("is_defective", False))
+        if not is_def:
+            y_type = 0
+            y_paths = np.zeros((self.index.max_path_id,), dtype=np.float32)
+        else:
+            # single defect in current generator; if multiple, use first for type label
+            defects = r.get("defects", []) or []
+            t = (defects[0].get("type") if defects else None) or "clean"
+            y_type = self.index.defect_to_id.get(str(t), 0)
+            y_paths = np.zeros((self.index.max_path_id,), dtype=np.float32)
+            for d in defects:
+                for pid in (d.get("path_ids", []) or []):
+                    try:
+                        pid = int(pid)
+                    except Exception:
+                        continue
+                    if 0 <= pid < self.index.max_path_id:
+                        y_paths[pid] = 1.0
+
+        y_mask_t = torch.from_numpy(mask).unsqueeze(0)  # (1,H,W)
+        y_type_t = torch.tensor(y_type, dtype=torch.long)
+        y_paths_t = torch.from_numpy(y_paths)
+
+        return x_t, svgv_t, y_mask_t, y_type_t, y_paths_t, r["id"], (h0, w0), r

@@ -1,0 +1,18 @@
+{
+  "n": 247996,
+  "num_fonts": 31,
+  "def_vs_clean": {
+    "def": 212568,
+    "clean": 35428
+  },
+  "sizes": {
+    "": 247996
+  },
+  "defect_type_counts": {
+    "misplaced_diacritic": 42272,
+    "missing_diacritic": 42520,
+    "jitter": 42872,
+    "gap": 42356,
+    "spur": 42548
+  }
+}
