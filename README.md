@@ -1,5 +1,5 @@
 # CFDefect Toolkit (Reference Pipeline)
-This toolkit is a **results-producing pipeline** intended to accompany the CalligraGuard / CFDefect-2M paper draft.
+This toolkit is a **results-producing pipeline** intended to accompany the CalligraGuard / CFDefect-2M paper.
 
 It provides:
 1) **Font → SVG export** (via `fontTools`)
