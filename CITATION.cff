@@ -1,0 +1,28 @@
+cff-version: 1.2.0
+message: "If you use this repository, please cite the repository and the accompanying manuscript."
+title: "CalligraGuard / CFDefect"
+type: software
+authors:
+  - family-names: Alqithami
+    given-names: Saad
+repository-code: "https://github.com/alqithami/calligraguard"
+url: "https://github.com/alqithami/calligraguard"
+abstract: >-
+  Code and released artifacts for SVG-level synthetic defect generation,
+  evaluation, and reference-aware Arabic glyph defect inspection.
+keywords:
+  - Arabic typography
+  - font quality assurance
+  - anomaly detection
+  - SVG
+  - vector graphics
+  - benchmark
+license: "NOASSERTION"
+preferred-citation:
+  type: article
+  authors:
+    - family-names: Alqithami
+      given-names: Saad
+  title: "CalligraGuard: Raster–Vector Grounded Arabic Font Defect Inspection with Dense SVG Embeddings and the CFDefect Benchmark"
+  year: 2026
+  journal: "Preprint"

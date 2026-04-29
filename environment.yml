@@ -1,0 +1,19 @@
+name: calligraguard
+channels:
+  - conda-forge
+  - pytorch
+dependencies:
+  - python=3.10
+  - pip
+  - numpy
+  - scipy
+  - scikit-learn
+  - scikit-image
+  - opencv
+  - pillow
+  - fonttools
+  - cairosvg
+  - pytorch
+  - torchvision
+  - tqdm
+  - pyyaml

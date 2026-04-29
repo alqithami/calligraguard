@@ -1,0 +1,3 @@
+font_id,display_name,source_filename,source_url,version_or_release_date,license,license_url,sha256,split_assignment,redistributable,notes
+example_font_1,Example Font Regular,ExampleFont-Regular.ttf,https://example.org/font.ttf,2025-01-01,OFL-1.1,https://openfontlicense.org/,CHANGE_ME,train,no,Fill this row with a real font.
+example_font_2,Example Font Bold,ExampleFont-Bold.otf,https://example.org/font.otf,2025-01-01,Commercial,https://example.org/license,CHANGE_ME,test,no,Record exact provenance even if the font cannot be redistributed.
