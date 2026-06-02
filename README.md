@@ -226,7 +226,7 @@ python -m cfdefect.baselines.calligraguard_predict \
   --score_mode maskmax
 ```
 
-## Generate paper-facing tables
+## Generate tables
 
 ### Strict-FPR detection table for one run
 
@@ -260,10 +260,6 @@ See `docs/RESULTS_AND_ARTIFACTS.md` and `docs/RUNS_MANIFEST.csv` for the current
 ## Dataset provenance
 
 Populate `docs/FONTS_MANIFEST_TEMPLATE.csv` before calling the repository complete. If source fonts cannot be redistributed, the manifest should still record source URL, version, license, checksum, and split assignment.
-
-## Paper assets
-
-If the README claims that the repository can regenerate or compile the paper, the `paper/` directory should contain the actual manuscript PDF and source package. See `paper/README.md`.
 
 ## Citation
 
