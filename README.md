@@ -36,8 +36,8 @@ The main package is `cfdefect/`:
 - `cfdefect/make_detection_fpr_table.py` — generate a strict-FPR LaTeX table for one prediction file.
 - `cfdefect/make_latex_tables.py` — generate summary LaTeX tables from one or more `metrics.json` files.
 - `cfdefect/baselines/template_diff.py` — classical referenced differencing baseline.
-- `cfdefect/baselines/calligra_guard_train.py` — CalligraGuard-Lite training entry point.
-- `cfdefect/baselines/calligra_guard_predict.py` — CalligraGuard-Lite inference entry point.
+- `cfdefect/baselines/calligraguard_train.py` — CalligraGuard-Lite training entry point.
+- `cfdefect/baselines/calligraguard_predict.py` — CalligraGuard-Lite inference entry point.
 
 The repository also exposes selected artifacts under `runs_split/`, `runs/`, and `runs_2m/`, plus generated LaTeX tables under `tables/`.
 
