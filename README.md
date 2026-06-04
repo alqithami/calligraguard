@@ -1,73 +1,45 @@
 # CalligraGuard / CFDefect
 
-Code, data-generation scripts, evaluation utilities, and released artifacts for Arabic glyph defect inspection and the CFDefect benchmark.
+Code, dataset-generation scripts, evaluation utilities, and released artifacts for Arabic glyph defect inspection and the CFDefect benchmark.
 
-## What this public repository is meant to contain
+## Repository status
 
-This repository is the reproducibility companion for the CalligraGuard / CFDefect work. The public tree is meant to cover four pieces:
+This public repository is close to a reviewer-facing reproducibility package, but it is **not fully complete yet**.
 
-1. dataset generation from real font files;
-2. released baseline and reference-model code;
-3. exact run artifacts behind the reported tables and figures;
-4. paper-facing assets such as generated tables and the final manuscript source/PDF.
+The public tree already includes:
 
-## Current scope of the public codebase
+- dataset generation code under `cfdefect/`;
+- held-out split definitions under `DATASET_SPLITS/`;
+- selected released run artifacts under `runs_split/`, `runs/`, and `runs_2m/`;
+- generated paper-facing LaTeX tables under `tables/`;
+- repository documentation under `docs/`.
 
-The code tree is organized around the `cfdefect/` package:
+The main remaining gaps are:
 
-- `cfdefect/export_glyphs.py`: export per-glyph SVG files from TTF/OTF/TTC fonts.
-- `cfdefect/build_dataset.py`: generate paired clean/defective raster samples, masks, and `meta.jsonl`.
-- `cfdefect/precompute_svgv.py`: pre-render SVG-V inputs.
-- `cfdefect/evaluate.py`: compute detection, localization, classification, and attribution metrics.
-- `cfdefect/make_detection_fpr_table.py`: generate a strict-FPR LaTeX table for one prediction file.
-- `cfdefect/make_latex_tables.py`: generate summary LaTeX tables from one or more `metrics.json` files.
-- `cfdefect/baselines/template_diff.py`: classical referenced differencing baseline.
-- `cfdefect/baselines/calligraguard_train.py`: CalligraGuard-Lite training entry point.
-- `cfdefect/baselines/calligraguard_predict.py`: CalligraGuard-Lite inference entry point.
+- fill `docs/FONTS_MANIFEST.csv` with the **actual** source-font provenance;
+- upload missing run artifacts for `runs_2m/calligra_ref_nosvgv/`;
+- upload missing run artifacts for `runs/unet_scoremax/` if that run is cited in the manuscript;
+- upload figure-generation scripts or figure-source data;
+- create a GitHub Release for large checkpoints / predictions that should not live in git;
+- optionally upload repository-facing manuscript assets under `paper/`.
 
-The public repository currently also exposes selected artifacts under `runs_split/`, `runs/`, `runs_2m/`, and generated paper tables under `tables/`.
+Until the manuscript and repository are fully synchronized, treat the released `metrics.json` files and generated `tables/*.tex` in this repository as the **public source of truth** for released artifact values.
 
-## What is intentionally not redistributed by default
+## What is in the code tree
 
-The repository may not redistribute everything needed for exact regeneration unless you add it explicitly. In particular, you should assume that the following still need to be documented and/or uploaded:
+The main package is `cfdefect/`:
 
-- source font files and their licenses;
-- full generated datasets, if they are too large for Git;
-- large checkpoints and prediction dumps that are better attached to Releases or an external archive;
-- any private or unpublished baseline implementations not present under `cfdefect/`;
-- the exact paper source and PDF, unless they are added under `paper/`.
+- `cfdefect/export_glyphs.py` — export per-glyph SVG files from TTF/OTF/TTC fonts.
+- `cfdefect/build_dataset.py` — build paired clean/defective raster samples, masks, and `meta.jsonl`.
+- `cfdefect/precompute_svgv.py` — pre-render SVG-V inputs.
+- `cfdefect/evaluate.py` — compute detection, localization, classification, and attribution metrics.
+- `cfdefect/make_detection_fpr_table.py` — generate a strict-FPR LaTeX table for one prediction file.
+- `cfdefect/make_latex_tables.py` — generate summary LaTeX tables from one or more `metrics.json` files.
+- `cfdefect/baselines/template_diff.py` — classical referenced differencing baseline.
+- `cfdefect/baselines/calligra_guard_train.py` — CalligraGuard-Lite training entry point.
+- `cfdefect/baselines/calligra_guard_predict.py` — CalligraGuard-Lite inference entry point.
 
-## Recommended repository layout
-
-```text
-calligraguard/
-├── README.md
-├── CITATION.cff
-├── LICENSE                  # choose and add a real license before final release
-├── requirements.txt
-├── environment.yml
-├── DATASET_SPLITS/
-│   ├── README.md
-│   ├── train/
-│   ├── val/
-│   └── test/
-├── cfdefect/
-├── docs/
-│   ├── REPRODUCIBILITY.md
-│   ├── RESULTS_AND_ARTIFACTS.md
-│   ├── RUNS_MANIFEST.csv
-│   ├── FONTS_MANIFEST_TEMPLATE.csv
-│   └── PAPER_RELEASE_NOTES.md
-├── paper/
-│   ├── README.md
-│   ├── manuscript.pdf
-│   ├── source.zip
-│   └── figures/             # optional, if you want paper assets inside the repo
-├── runs/
-├── runs_split/
-├── runs_2m/
-└── tables/
-```
+The repository also exposes selected artifacts under `runs_split/`, `runs/`, and `runs_2m/`, plus generated LaTeX tables under `tables/`.
 
 ## Installation
 
@@ -103,19 +75,19 @@ DATASET_ROOT/
 └── meta.jsonl
 ```
 
-Each line in `meta.jsonl` is a single sample record. The key fields used throughout the codebase are:
+Each line in `meta.jsonl` is a single sample record. Common fields include:
 
-- `id`: stable sample identifier;
-- `font_id`: source font identifier;
-- `unicode`: codepoint label such as `U+0628`;
-- `form`: contextual-form field (currently often `unknown` in the released generator);
-- `render`: render configuration dictionary;
-- `is_defective`: image-level binary label;
-- `defects`: list of defect annotations;
-- `image_path`, `mask_path`, `svg_path`;
-- `clean_image_path`, `clean_svg_path`.
+- `id`
+- `font_id`
+- `unicode`
+- `form`
+- `render`
+- `is_defective`
+- `defects`
+- `image_path`, `mask_path`, `svg_path`
+- `clean_image_path`, `clean_svg_path`
 
-## Quick start: build a local dataset
+## Quick start
 
 ### 1) Export glyphs from fonts
 
@@ -127,7 +99,7 @@ python -m cfdefect.export_glyphs \
   --font_glob "*.ttf"
 ```
 
-If you have OTF or TTC fonts, rerun with `--font_glob "*.otf"` or `--font_glob "*.ttc"`.
+Repeat with `*.otf` or `*.ttc` if needed.
 
 ### 2) Build the paired clean/defective dataset
 
@@ -149,7 +121,7 @@ python -m cfdefect.precompute_svgv \
   --size 64
 ```
 
-## Quick start: run the released baselines / model
+## Run the released baselines / model
 
 ### TemplateDiff
 
@@ -226,7 +198,7 @@ python -m cfdefect.baselines.calligraguard_predict \
   --score_mode maskmax
 ```
 
-## Generate tables
+## Generate paper-facing tables
 
 ### Strict-FPR detection table for one run
 
@@ -246,25 +218,40 @@ python -m cfdefect.make_latex_tables \
   --out_dir /path/to/tables
 ```
 
-## Public artifact inventory to keep in sync
+## Public artifact policy
 
-At minimum, if a run is cited in the paper, its folder should include:
+If a run is cited in the manuscript, its public artifact should include:
 
 - `metrics.json`;
 - `pred.jsonl`;
 - `train_info.json` for learned methods;
-- `model.pt` or a Release/DOI link to the checkpoint.
+- `model.pt` or a Release / DOI link to the checkpoint.
 
-See `docs/RESULTS_AND_ARTIFACTS.md` and `docs/RUNS_MANIFEST.csv` for the current artifact matrix and the places where the repository still needs synchronization with the manuscript.
+See:
+
+- `docs/RESULTS_AND_ARTIFACTS.md`
+- `docs/RUNS_MANIFEST.csv`
+- `docs/ADMIN_STEPS.md`
 
 ## Dataset provenance
 
-Populate `docs/FONTS_MANIFEST_TEMPLATE.csv` before calling the repository complete. If source fonts cannot be redistributed, the manifest should still record source URL, version, license, checksum, and split assignment.
+Before calling the repository complete, replace the placeholder `docs/FONTS_MANIFEST.csv` with the **actual** font manifest: source URL, font version, license, checksum, split assignment, and redistribution status for every source font.
+
+## Paper assets
+
+A placeholder `paper/` directory is included for repository-facing manuscript assets.
+
+If you want the repository itself to store the manuscript snapshot, upload:
+
+- `paper/manuscript.pdf`
+- `paper/source.zip`
+
+If those files are not committed to the repository, keep them in a GitHub Release or external archive and update `paper/README.md` accordingly.
 
 ## Citation
 
-Please cite the repository and the accompanying manuscript. A ready-to-edit `CITATION.cff` is included.
+Please cite the repository and the accompanying manuscript as appropriate. A `CITATION.cff` file is included.
 
 ## License
 
-Choose a real license before final release. A `LICENSE-MIT.txt` option is included in this bundle for convenience, but you should only rename/upload it if that is the license you want to apply.
+This repository is released under the MIT License.
