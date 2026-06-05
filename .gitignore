@@ -1,0 +1,46 @@
+# Python
+__pycache__/
+*.py[cod]
+*.so
+*.pyd
+
+# Environments
+.venv/
+venv/
+env/
+ENV/
+.conda/
+conda-bld/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Build / packaging
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# Logs / temp
+*.log
+tmp/
+temp/
+
+# Data / model artifacts that should usually not be committed
+datasets/
+data/
+outputs/
+checkpoints/
+*.pt
+*.pth
+*.ckpt
+*.npz
+*.npy
+*.csv.gz
+*.jsonl.gz
