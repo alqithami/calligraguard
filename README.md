@@ -23,6 +23,8 @@ The main remaining gaps are:
 - create a GitHub Release for large checkpoints / predictions that should not live in git;
 - optionally upload repository-facing manuscript assets under `paper/`.
 
+See `docs/UPLOAD_CHECKLIST.md` for the exact filenames and paths that still need to be uploaded or completed manually.
+
 Until the manuscript and repository are fully synchronized, treat the released `metrics.json` files and generated `tables/*.tex` in this repository as the **public source of truth** for released artifact values.
 
 ## What is in the code tree
@@ -231,6 +233,7 @@ See:
 
 - `docs/RESULTS_AND_ARTIFACTS.md`
 - `docs/RUNS_MANIFEST.csv`
+- `docs/UPLOAD_CHECKLIST.md`
 - `docs/ADMIN_STEPS.md`
 
 ## Dataset provenance
