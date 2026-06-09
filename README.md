@@ -1,5 +1,9 @@
 # CalligraGuard / CFDefect
 
+[![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![arXiv](https://img.shields.io/badge/arXiv-xxxx.XXXXX-b31b1b.svg)](https://arxiv.org/)
+
 Code, dataset-generation scripts, evaluation utilities, and released artifacts for Arabic glyph defect inspection and the CFDefect benchmark.
 
 ## Repository status
