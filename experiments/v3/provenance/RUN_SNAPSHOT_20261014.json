@@ -1,0 +1,18 @@
+{
+  "snapshot_utc": "2026-10-14T21:55:49.540427+00:00",
+  "snapshot_type": "read-only progress snapshot, not a live status endpoint or completed result",
+  "status": "running",
+  "active_stage": "segformer_b2_ref seed 3701",
+  "completed_training_fits": 10,
+  "planned_training_fits": 22,
+  "completed_by_method": {"unet34_ref": 5, "deeplab50_ref": 3, "segformer_b2_ref": 2, "unet34_geometry": 0, "patchcore": 0, "dinomaly": 0},
+  "active_progress": {"method": "segformer_b2_ref", "seed": 3701, "epoch": 32, "microbatch": 700, "microbatches_per_epoch": 5159, "optimizer_steps": 80330},
+  "failure_marker_present": false,
+  "study_complete": false,
+  "held_out_evaluations_completed": 0,
+  "model_registry_frozen": false,
+  "scientific_source_files_verified": 14,
+  "data_manifest_sha256": "e9054589f930f566270cf69daa205e1740ffa81190ef25d42d1f5756f1669790",
+  "publication_changes_active_run": false,
+  "contains_final_performance_results": false
+}

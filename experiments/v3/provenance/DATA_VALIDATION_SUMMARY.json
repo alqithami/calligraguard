@@ -1,0 +1,16 @@
+{
+  "source_report": "DATA_AND_EVALUATOR_TESTS.json from the active study",
+  "summary_not_full_dataset": true,
+  "status": "PASS",
+  "generated": 135883,
+  "primary": 135844,
+  "observation_only": 39,
+  "counts": {"train": 82551, "development": 10543, "calibration": 4260, "test_family": 11930, "test_renderer": 11912, "test_resolution128": 3979, "test_resolution512": 3985, "test_latin": 6684},
+  "calibration_base_glyphs": 284,
+  "distinct_training_base_glyphs": 1536,
+  "source_counts": {"train": 19, "development": 3, "calibration": 4, "test_family": 3, "test_latin": 5},
+  "failures": [],
+  "meta_sha256": "e9054589f930f566270cf69daa205e1740ffa81190ef25d42d1f5756f1669790",
+  "evaluator_regression_tests_passed": 9,
+  "statement": "Automated geometric/data integrity only; not expert realism or full genealogical independence"
+}

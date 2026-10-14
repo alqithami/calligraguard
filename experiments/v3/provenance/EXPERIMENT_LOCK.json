@@ -1,0 +1,24 @@
+{
+  "locked_utc": "2026-10-13T23:54:53.951346+00:00",
+  "source_sha256": {
+    "acquire_sources.py": "0b6e11b2a083011d719cafab8125cefe7d382daf86b38fbc97ed10772a563987",
+    "benchmark_common.py": "848d902ab6fb631cffc041bbe9e5465f5dbca76b25ae6d261a4169a65e61eb7c",
+    "build_benchmark.py": "ca8c34364a113c04c7558a5317bba006b67546ccd317c21fb52088554c6c48c7",
+    "classical_benchmarks.py": "edc23b74b326d230956cec61e189c40d69522455f2a5f10cbfb76d037dc093d7",
+    "geometry_helpers.py": "cb24f1de80bd5408e69f01ed6788bffe726099b3c1cf0e263b49429232f92bab",
+    "normal_ad.py": "044b99ce29562eb8ca04106a34f32689ee9129af7fb3f54e92f9be3b8a602562",
+    "observation_partition.py": "d3115005e51721f5704e692ea9101eae848e6023c7eb6f2dc1ae2d60ec918ca5",
+    "preflight_normal_ad.py": "af413000e4e65faba633e25b5571e8dfea58ad77931749f9077f4bf0d622f2a5",
+    "requirements.txt": "2e0df8c9338622412784cda5ddf1f38e90eaa96c6e9e59ad4fcd298243e2a1c7",
+    "run_benchmark.py": "4133443acc65906b5daee7b20cf179e791cd2dde20a51edae9d1ddd19d3369c2",
+    "source_plan.json": "7205426bc5ac988acdf88502eb653f7d0ce812ea9fd643d03777d1619929bf77",
+    "study_plan.json": "6f3a9d3fe4708d8b181ac5f12a23bcd42a2cd2a7b1cb50563756b7c549e58915",
+    "train_multitask.py": "d18cfa27deed2ca46604e56fd1ffc3c9e98595f742a4de5e91638facd0f451ba",
+    "validate_and_test.py": "142ccdf54c283065118fc385d193d2a503bda5175aa3c282c4978a706a3b7eec"
+  },
+  "data_meta_sha256": "e9054589f930f566270cf69daa205e1740ffa81190ef25d42d1f5756f1669790",
+  "all_records_sha256": "7bfb7276b44402ebb5d6a692f759a90257fc1a4ebab43afdd60e27b87b790b27",
+  "vendor_commits": {"patchcore": "fcaa92f124fb1ad74a7acf56726decd4b27cbcad", "dinomaly": "1f252be03a918789b19848f0ca37166e7c28dada"},
+  "test_results_opened": false,
+  "scope": "Source-defined synthetic family, renderer, resolution and script evaluations; real defects and expert validation not included"
+}

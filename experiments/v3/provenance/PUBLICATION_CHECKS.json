@@ -1,0 +1,23 @@
+{
+  "publication_stage": "ongoing experiment source and provenance snapshot",
+  "snapshot_date": "2026-10-14",
+  "scientific_files": 14,
+  "scientific_source_verification": "PASS: staged Git blob hashes matched the exact Mac files, whose SHA-256 values matched the active server's frozen study lock",
+  "scientific_source_modifications": 0,
+  "training_process_modified": false,
+  "dataset_modified": false,
+  "model_configuration_modified": false,
+  "source_font_manifest_records": 34,
+  "font_binaries_uploaded": false,
+  "private_host_credentials_or_ssh_configuration_uploaded": false,
+  "final_v3_performance_results_uploaded": false,
+  "finished_checkpoint_archive_uploaded": false,
+  "new_manuscript_compiled": false,
+  "portable_setup_helper": "New publication-only helper, separate from the frozen scientific source. Syntax validation does not establish a completed clean-machine end-to-end reproduction.",
+  "source_of_counts": "Active study validation and operational snapshot; not estimated training results",
+  "limitations": [
+    "Final predictions, checkpoints, figures and manuscript-to-artifact reconciliation are pending",
+    "Passing software checks does not establish scientific novelty or external validity",
+    "Legacy code and recorded artifacts remain historically preserved, not retroactively validated"
+  ]
+}

@@ -1,264 +1,54 @@
 # CalligraGuard / CFDefect
 
-[![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![arXiv](https://img.shields.io/badge/arXiv-xxxx.XXXXX-b31b1b.svg)](https://arxiv.org/)
+Research code for glyph-level defect inspection: controlled outline interventions, paired raster evidence, defect localization, type labeling, and independently calibrated false-alarm evaluation.
 
-Code, dataset-generation scripts, evaluation utilities, and released artifacts for Arabic glyph defect inspection and the CFDefect benchmark.
+## Current research version
 
-## Repository status
+The expanded **CFDefect-v3 computational benchmark is in progress**. Its frozen scientific source is now under [`experiments/v3/`](experiments/v3/README.md). This is a research snapshot, not a completed leaderboard or submission-ready release.
 
-This public repository is close to a reviewer-facing reproducibility package, but it is **not fully complete yet**.
+- [V3 instructions and scope](experiments/v3/README.md)
+- [Dated run snapshot](experiments/v3/provenance/RUN_SNAPSHOT_20261014.json)
+- [Current assessment and next decisions](docs/RESEARCH_STATUS.md)
+- [Legacy audit and claim corrections](docs/LEGACY_AUDIT.md)
+- [Completed development studies, kept separate from v3](docs/DEVELOPMENT_RESULTS.md)
+- [Source-font provenance](docs/DATA_PROVENANCE.md)
+- [Remaining release requirements](docs/UPLOAD_CHECKLIST.md)
 
-The public tree already includes:
+**Historical warning:** `cfdefect/`, `DATASET_SPLITS/`, `runs/`, `runs_split/`, `runs_2m/`, and the original `tables/` belong to the legacy experiment. An audit found invalid or invisible generated positives, destructive small-component filtering, weak family separation, and manuscript/code discrepancies. Those files are preserved, not silently overwritten. Their presence is not validation of the original paper's superiority claims. Read the audit before reusing them.
 
-- dataset generation code under `cfdefect/`;
-- held-out split definitions under `DATASET_SPLITS/`;
-- selected released run artifacts under `runs_split/`, `runs/`, and `runs_2m/`;
-- generated paper-facing LaTeX tables under `tables/`;
-- repository documentation under `docs/`.
+## What v3 adds
 
-The main remaining gaps are:
+The verified build contains **135,883 generated records**, of which **135,844** are in the primary observation-level population and **39** are separately retained as observation-only interventions. These are rendered records, not independent font families or independent physical defects.
 
-- fill `docs/FONTS_MANIFEST.csv` with the **actual** source-font provenance;
-- upload missing run artifacts for `runs_2m/calligra_ref_nosvgv/`;
-- upload missing run artifacts for `runs/unet_scoremax/` if that run is cited in the manuscript;
-- upload figure-generation scripts or figure-source data;
-- create a GitHub Release for large checkpoints / predictions that should not live in git;
-- optionally upload repository-facing manuscript assets under `paper/`.
+| Partition | Primary records |
+|---|---:|
+| Training | 82,551 |
+| Development | 10,543 |
+| Normal calibration | 4,260 |
+| New Arabic source-family evaluation | 11,930 |
+| Renderer-shift evaluation | 11,912 |
+| 128-pixel native rendering | 3,979 |
+| 512-pixel native rendering | 3,985 |
+| Latin transfer | 6,684 |
 
-See `docs/UPLOAD_CHECKLIST.md` for the exact filenames and paths that still need to be uploaded or completed manually.
+There are 34 pinned font sources: 19 training, 3 development, 4 calibration, 3 new Arabic evaluation, and 5 Latin evaluation sources. Known derivatives are grouped; complete genealogical independence is not asserted. Training records derive from 1,536 distinct base glyphs; calibration uses 284 base-glyph groups.
 
-Until the manuscript and repository are fully synchronized, treat the released `metrics.json` files and generated `tables/*.tex` in this repository as the **public source of truth** for released artifact values.
+The five defined interventions are `spur`, `notch`, `local_deformation`, `missing_mark`, and `misplaced_mark`. A notch is not claimed to sever a whole stroke. Arabic cases use isolated base-plus-combining-mark shaping, not full text-line layout validation.
 
-## What is in the code tree
+The configured comparisons are 16 pretrained supervised fits, 6 normal-only fits, and 12 classical configurations. Supervised models predict a detection score, a pixel mask, and five defect types. The normal-only methods use pinned author PatchCore and Dinomaly implementations with documented adaptations; they do not receive a query-specific clean reference at inference. Geometry conditioning is an ablation, not established methodological novelty.
 
-The main package is `cfdefect/`:
+## Reproduction
 
-- `cfdefect/export_glyphs.py` — export per-glyph SVG files from TTF/OTF/TTC fonts.
-- `cfdefect/build_dataset.py` — build paired clean/defective raster samples, masks, and `meta.jsonl`.
-- `cfdefect/precompute_svgv.py` — pre-render SVG-V inputs.
-- `cfdefect/evaluate.py` — compute detection, localization, classification, and attribution metrics.
-- `cfdefect/make_detection_fpr_table.py` — generate a strict-FPR LaTeX table for one prediction file.
-- `cfdefect/make_latex_tables.py` — generate summary LaTeX tables from one or more `metrics.json` files.
-- `cfdefect/baselines/template_diff.py` — classical referenced differencing baseline.
-- `cfdefect/baselines/calligraguard_train.py` — CalligraGuard-Lite training entry point.
-- `cfdefect/baselines/calligraguard_predict.py` — CalligraGuard-Lite inference entry point.
+Use the Python 3.11/CUDA instructions in [`experiments/v3/README.md`](experiments/v3/README.md), not the legacy root requirements. All 14 frozen scientific/configuration files were checked against the active study's source hashes before publication. The new public setup helper is separate from those scientific files and does not alter the running study.
 
-The repository also exposes selected artifacts under `runs_split/`, `runs/`, and `runs_2m/`, plus generated LaTeX tables under `tables/`.
+Do not copy provenance snapshots into live output locations as completion markers. `STUDY_COMPLETE.json`, produced by an actual run after fitting and held-out evaluation, is the computational completion indicator. It is not a guarantee of publication readiness.
 
-## Installation
+## Evidence and limitations
 
-### Option A: pip + virtualenv
+V3 held-out results are not yet released. Completed v2b and repair studies are exploratory, use different populations, and must not be pooled with v3. No real-defect study, expert adjudication, full shaping validation, or active-rendering efficiency advantage is established. Calibration reports realized image- and parent-level false positives; it does not guarantee a target FPR under distribution shift.
 
-```bash
-python -m venv .venv
-source .venv/bin/activate
-python -m pip install --upgrade pip
-pip install -r requirements.txt
-```
-
-### Option B: conda
-
-```bash
-conda env create -f environment.yml
-conda activate calligraguard
-```
-
-## Dataset format
-
-A built dataset root is expected to look like this:
-
-```text
-DATASET_ROOT/
-├── images/
-├── masks/
-├── svg/
-├── clean_svg/
-├── clean_images/
-├── svgv/          # added after precompute_svgv
-├── clean_svgv/    # added after precompute_svgv
-└── meta.jsonl
-```
-
-Each line in `meta.jsonl` is a single sample record. Common fields include:
-
-- `id`
-- `font_id`
-- `unicode`
-- `form`
-- `render`
-- `is_defective`
-- `defects`
-- `image_path`, `mask_path`, `svg_path`
-- `clean_image_path`, `clean_svg_path`
-
-## Quick start
-
-### 1) Export glyphs from fonts
-
-```bash
-python -m cfdefect.export_glyphs \
-  --fonts_dir /path/to/fonts \
-  --out_dir /path/to/out_svg \
-  --chars_file chars_arabic.txt \
-  --font_glob "*.ttf"
-```
-
-Repeat with `*.otf` or `*.ttc` if needed.
-
-### 2) Build the paired clean/defective dataset
-
-```bash
-python -m cfdefect.build_dataset \
-  --svg_dir /path/to/out_svg \
-  --out_dir /path/to/DATASET_ROOT \
-  --renders "64,96" \
-  --variants_per_glyph 4 \
-  --seed 123 \
-  --workers 8
-```
-
-### 3) Precompute SVG-V
-
-```bash
-python -m cfdefect.precompute_svgv \
-  --dataset_root /path/to/DATASET_ROOT \
-  --size 64
-```
-
-## Run the released baselines / model
-
-### TemplateDiff
-
-```bash
-python -m cfdefect.baselines.template_diff \
-  --dataset /path/to/DATASET_ROOT \
-  --out_pred /path/to/runs/template_diff/pred.jsonl
-
-python -m cfdefect.evaluate \
-  --gt /path/to/DATASET_ROOT/meta.jsonl \
-  --pred /path/to/runs/template_diff/pred.jsonl \
-  --out /path/to/runs/template_diff/metrics.json \
-  --dataset_root /path/to/DATASET_ROOT
-```
-
-### CalligraGuard-Lite (template-referenced, with SVG-V)
-
-```bash
-python -m cfdefect.baselines.calligraguard_train \
-  --dataset /path/to/DATASET_ROOT \
-  --out_dir /path/to/runs/calligra_ref_svgv \
-  --mode referenced \
-  --use_svgv \
-  --epochs 10 \
-  --batch_size 16 \
-  --lr 1e-3
-
-python -m cfdefect.baselines.calligraguard_predict \
-  --dataset /path/to/DATASET_ROOT \
-  --ckpt /path/to/runs/calligra_ref_svgv/model.pt \
-  --out_pred /path/to/runs/calligra_ref_svgv/pred.jsonl \
-  --score_mode maskmax
-
-python -m cfdefect.evaluate \
-  --gt /path/to/DATASET_ROOT/meta.jsonl \
-  --pred /path/to/runs/calligra_ref_svgv/pred.jsonl \
-  --out /path/to/runs/calligra_ref_svgv/metrics.json \
-  --dataset_root /path/to/DATASET_ROOT
-```
-
-### CalligraGuard-Lite (template-referenced, no SVG-V)
-
-```bash
-python -m cfdefect.baselines.calligraguard_train \
-  --dataset /path/to/DATASET_ROOT \
-  --out_dir /path/to/runs/calligra_ref_nosvgv \
-  --mode referenced \
-  --epochs 10 \
-  --batch_size 16 \
-  --lr 1e-3
-
-python -m cfdefect.baselines.calligraguard_predict \
-  --dataset /path/to/DATASET_ROOT \
-  --ckpt /path/to/runs/calligra_ref_nosvgv/model.pt \
-  --out_pred /path/to/runs/calligra_ref_nosvgv/pred.jsonl \
-  --score_mode maskmax
-```
-
-### CalligraGuard-Lite (universal)
-
-```bash
-python -m cfdefect.baselines.calligraguard_train \
-  --dataset /path/to/DATASET_ROOT \
-  --out_dir /path/to/runs/calligra_uni \
-  --mode universal \
-  --epochs 10 \
-  --batch_size 16 \
-  --lr 1e-3
-
-python -m cfdefect.baselines.calligraguard_predict \
-  --dataset /path/to/DATASET_ROOT \
-  --ckpt /path/to/runs/calligra_uni/model.pt \
-  --out_pred /path/to/runs/calligra_uni/pred.jsonl \
-  --score_mode maskmax
-```
-
-## Generate paper-facing tables
-
-### Strict-FPR detection table for one run
-
-```bash
-python -m cfdefect.make_detection_fpr_table \
-  --gt /path/to/DATASET_ROOT/meta.jsonl \
-  --pred /path/to/runs/calligra_ref_svgv/pred.jsonl \
-  --out_tex /path/to/tables/detection_fpr_calligra.tex \
-  --method_name calligra_ref_svgv
-```
-
-### Summary LaTeX table across multiple runs
-
-```bash
-python -m cfdefect.make_latex_tables \
-  --metrics_glob "/path/to/runs/*/metrics.json" \
-  --out_dir /path/to/tables
-```
-
-## Public artifact policy
-
-If a run is cited in the manuscript, its public artifact should include:
-
-- `metrics.json`;
-- `pred.jsonl`;
-- `train_info.json` for learned methods;
-- `model.pt` or a Release / DOI link to the checkpoint.
-
-See:
-
-- `docs/RESULTS_AND_ARTIFACTS.md`
-- `docs/RUNS_MANIFEST.csv`
-- `docs/UPLOAD_CHECKLIST.md`
-- `docs/ADMIN_STEPS.md`
-
-## Dataset provenance
-
-Before calling the repository complete, replace the placeholder `docs/FONTS_MANIFEST.csv` with the **actual** font manifest: source URL, font version, license, checksum, split assignment, and redistribution status for every source font.
-
-## Paper assets
-
-A placeholder `paper/` directory is included for repository-facing manuscript assets.
-
-If you want the repository itself to store the manuscript snapshot, upload:
-
-- `paper/manuscript.pdf`
-- `paper/source.zip`
-
-If those files are not committed to the repository, keep them in a GitHub Release or external archive and update `paper/README.md` accordingly.
+Font binaries, server addresses, SSH details, private credentials, and unfinished checkpoints are not included in this update. No final arXiv identifier or publication claim is supplied. The root license applies to this repository's code; third-party implementations and font inputs retain their own licenses.
 
 ## Citation
 
-Please cite the repository and the accompanying manuscript as appropriate. A `CITATION.cff` file is included.
-
-## License
-
-This repository is released under the MIT License.
+Use [`CITATION.cff`](CITATION.cff) for the software and identify the exact repository commit and experiment version used. Do not cite historical manuscript numbers as verified v3 results.

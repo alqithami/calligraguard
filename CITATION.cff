@@ -1,5 +1,5 @@
 cff-version: 1.2.0
-message: "If you use this repository, please cite the software repository. If you also cite the manuscript, update the manuscript metadata if the title changes."
+message: "Cite this software with its exact commit and experiment version. V3 is an ongoing benchmark; legacy results are subject to the published audit."
 title: "CalligraGuard / CFDefect"
 type: software
 authors:
@@ -8,13 +8,14 @@ authors:
 repository-code: "https://github.com/alqithami/calligraguard"
 url: "https://github.com/alqithami/calligraguard"
 abstract: >-
-  Code and released artifacts for SVG-level synthetic defect generation,
-  evaluation, and reference-aware Arabic glyph defect inspection.
+  Versioned research software for synthetic glyph-outline interventions,
+  reference-aware multi-task inspection, normal-only anomaly baselines,
+  observation-level data validation, and false-alarm evaluation. The repository
+  preserves audited legacy artifacts and the frozen source of the ongoing v3 study.
 keywords:
+  - glyph inspection
   - Arabic typography
-  - font quality assurance
   - anomaly detection
-  - SVG
-  - vector graphics
   - benchmark
+  - reproducibility
 license: "MIT"

@@ -1,40 +1,48 @@
-# Python
+# Python and build products
 __pycache__/
 *.py[cod]
 *.so
 *.pyd
+.ipynb_checkpoints/
+build/
+dist/
+*.egg-info/
+.eggs/
 
-# Environments
+# Environments, editors, and OS metadata
 .venv/
 venv/
 env/
 ENV/
 .conda/
 conda-bld/
-
-# Jupyter
-.ipynb_checkpoints/
-
-# OS / editor
 .DS_Store
 Thumbs.db
 .vscode/
 .idea/
 
-# Build / packaging
-build/
-dist/
-*.egg-info/
-.eggs/
+# Credentials and host-specific configuration
+.env
+.env.*
+*.pem
+*.key
+.ssh/
+*_private.json
 
-# Logs / temp
-*.log
-tmp/
-temp/
+# Font binaries are private acquisition inputs, not repository artifacts
+private_fonts/
+*.ttf
+*.otf
+*.ttc
+*.woff
+*.woff2
 
-# Data / model artifacts that should usually not be committed
+# Regenerable sources/data/outputs; existing tracked legacy files remain preserved
+vendor/
+backbones/
 datasets/
 data/
+data_v*/
 outputs/
 checkpoints/
 *.pt
@@ -44,3 +52,27 @@ checkpoints/
 *.npy
 *.csv.gz
 *.jsonl.gz
+*.tar.gz
+*.zip
+*.log
+tmp/
+temp/
+experiments/v3/runs/
+experiments/v3/logs/
+experiments/v3/classical/
+experiments/v3/previous_failures/
+experiments/v3/smoke_v3/
+experiments/v3/PROCESS.lock
+experiments/v3/STATUS.json
+experiments/v3/FAILED.json
+experiments/v3/EXPERIMENT_LOCK.json
+experiments/v3/MODEL_REGISTRY_LOCK.json
+experiments/v3/COMPLETED_FITS.json
+experiments/v3/STUDY_COMPLETE.json
+experiments/v3/ALL_RESULTS.json
+experiments/v3/*SOFTWARE_TESTS.json
+experiments/v3/DATA_AND_EVALUATOR_TESTS.json
+experiments/v3/installed_environment.txt
+experiments/v3/environment.freeze.txt
+experiments/v3/gpu_at_launch.txt
+experiments/v3/constraints.txt

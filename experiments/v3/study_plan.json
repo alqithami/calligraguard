@@ -1,0 +1,123 @@
+{
+  "study": "CFDefect-v3 expanded multi-task and normal-only benchmark",
+  "status": "configuration fixed before any v3 test evaluation",
+  "data": {
+    "source_plan": "source_plan.json",
+    "base_glyph_cap_per_source": 96,
+    "arabic_combining_marks": [
+      1614,
+      1615,
+      1616
+    ],
+    "severity_levels": [
+      0.15,
+      0.5,
+      0.9
+    ],
+    "normal_views_per_marked_shape": 5,
+    "geometry_helpers_sha256": "cb24f1de80bd5408e69f01ed6788bffe726099b3c1cf0e263b49429232f92bab",
+    "mask_threshold_uint8": 1,
+    "observation_only_records_preserved": true
+  },
+  "supervised": [
+    {
+      "method": "unet34_ref",
+      "seeds": [
+        1701,
+        2701,
+        3701,
+        4701,
+        5701
+      ]
+    },
+    {
+      "method": "deeplab50_ref",
+      "seeds": [
+        1701,
+        2701,
+        3701
+      ]
+    },
+    {
+      "method": "segformer_b2_ref",
+      "seeds": [
+        1701,
+        2701,
+        3701
+      ]
+    },
+    {
+      "method": "unet34_geometry",
+      "seeds": [
+        1701,
+        2701,
+        3701,
+        4701,
+        5701
+      ]
+    }
+  ],
+  "normal_only": [
+    {
+      "method": "patchcore",
+      "seeds": [
+        1701,
+        2701,
+        3701
+      ],
+      "normal_reference_image_budget": 1024,
+      "coreset_ratio": 0.01,
+      "source": "amazon-science/patchcore-inspection",
+      "commit": "fcaa92f124fb1ad74a7acf56726decd4b27cbcad"
+    },
+    {
+      "method": "dinomaly",
+      "seeds": [
+        1701,
+        2701,
+        3701
+      ],
+      "optimizer_steps": 10000,
+      "batch_size": 16,
+      "source": "guojiajeremy/Dinomaly",
+      "commit": "1f252be03a918789b19848f0ca37166e7c28dada"
+    }
+  ],
+  "training": {
+    "max_epochs": 40,
+    "min_epochs_before_early_stopping": 20,
+    "patience_epochs": 8,
+    "microbatch": 16,
+    "gradient_accumulation": 2,
+    "learning_rate": 0.0003,
+    "weight_decay": 0.0001,
+    "mixed_precision": "bfloat16",
+    "checkpoint_selection": "0.5 development AUROC + 0.3 positive-example Dice + 0.2 type macro-F1",
+    "normal_only_checkpoint_selection": "fixed official iteration budget; no defective validation labels",
+    "training_drop_last": true,
+    "training_drop_last_note": "The shuffled last incomplete microbatch is omitted to avoid a singleton BatchNorm batch; all validation and evaluation records are retained."
+  },
+  "evaluation": {
+    "source_family_test": "test_family",
+    "renderer_shift": "Cairo reference versus Skia candidate",
+    "resolution_shift_pixels": [
+      128,
+      512
+    ],
+    "cross_script": "Latin source families, three geometric types only",
+    "calibration_unit": "maximum benign-view score per base glyph, grouped across combining marks",
+    "report_actual_image_and_parent_fpr": true,
+    "no_exchangeability_guarantee_under_family_shift": true,
+    "bootstrap": "1000 base-glyph resamples within observed test source families; conditional on those families",
+    "test_access": "all run configurations, code, data and pretrained checkpoints are frozen before the first v3 test scoring; no test-based selection"
+  },
+  "known_limits": [
+    "Synthetic benchmark, not real-defect validation",
+    "No full shaped-text-line QA",
+    "Geometry feature conditioning is an ablation, not established methodological novelty",
+    "No active-rendering efficiency claim",
+    "EfficientAD and other additional methods are not included in this package",
+    "No expert study or claim of final publication readiness"
+  ],
+  "existing_campaigns": "Read only; never overwritten or deleted"
+}

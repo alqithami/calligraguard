@@ -1,12 +1,7 @@
-# Paper assets
+# Manuscript status
 
-This directory is reserved for repository-facing manuscript assets.
+The original CalligraGuard manuscript is a historical draft, not the final v3 paper. The original title, architecture figure, result narrative and some evaluation claims require revision in light of the [legacy audit](../docs/LEGACY_AUDIT.md).
 
-## Recommended contents
+The current repository publication adds v3 experimental source, provenance and research-status documentation. It does not claim to have produced, compiled or validated a new final manuscript. A complete v3 table/figure registry and source/PDF package should be published only after the ongoing evaluations and manuscript audit finish.
 
-- `manuscript.pdf` — the manuscript PDF for the repository snapshot.
-- `source.zip` — the source package corresponding to that manuscript snapshot.
-
-## Current status
-
-If these files are not committed to the repository, keep them in a GitHub Release or external archive and update this README with the public location.
+Any manuscript assets later added here must identify the exact experiment version, source commit, dataset/population hash and release status. Existing historical assets, if present, are not implicitly upgraded by a repository documentation change.

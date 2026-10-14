@@ -1,73 +1,23 @@
-# Upload checklist for a complete public repository
+# Remaining public-release requirements
 
-This file lists the remaining items that still need manual upload or manual completion before the repository can be called complete.
+Status: v3 source and provenance snapshot published while the experiment is running. The legacy tree is preserved. Do not upload unfinished results as a final release or replace old paper numbers by guesses.
 
-## 1) Font provenance
+## After computational completion
 
-Replace the placeholder row in `docs/FONTS_MANIFEST.csv` with the real source-font manifest.
+- Verify all 22 configured fits, their saved checkpoints/memory banks, optimizer histories where applicable, independent seeds, and every per-run evaluation marker. Check the 12 classical configurations and all five held-out conditions before accepting `STUDY_COMPLETE.json`.
+- Recompute metrics from complete, unique, finite per-example predictions. Verify raw score orientation, calibration/test group separation, actual parent and image FPR, mask conventions, per-type outcomes, and the observation-only denominator.
+- Release final prediction/mask files, exact checkpoint or archive links, full generated-data metadata and rejected-attempt/observation manifests, environment lock and source commit. Include checksums and a durable artifact inventory. Font binaries remain excluded.
+- Add figure-generation scripts plus source data and a one-to-one manuscript-table/figure mapping. Preserve development-vs-test distinctions and label differing input/supervision budgets.
+- Independently validate checkpoint replay and representative full evaluation, including the effect of batching/numerical settings. Resume support is not proof that every possible interruption is recovered identically.
 
-Required columns:
-- `source_filename`
-- `font_name`
-- `source_url`
-- `version_or_release_date`
-- `license`
-- `license_url`
-- `sha256`
-- `split_assignment`
-- `redistributable`
-- `notes`
+## Before calling the paper submission-ready
 
-## 2) Missing run artifacts
+- Complete a manuscript revision grounded in verified results. Reconcile or remove the old architecture description, SVG-V claims, score-orientation inconsistencies and unresolved figure populations. Do not advertise a final manuscript until it exists and has been checked.
+- Adjudicate source ancestry and realistic defect/benign-change labels, and collect independent real/toolchain cases. Synthetic Latin/renderer transfer is not a substitute for external production evidence.
+- State the methodological contribution that actually survives the comparisons. A conventional geometry-channel ablation or many successful fits is not, by itself, a novel architecture.
+- Review statistical uncertainty, calibration group count, per-family robustness, threshold-selection differences and remaining baseline limitations. Any post-test development needs a declared new evaluation plan.
+- Create a release only after the included artifacts exist and match the documentation. Cite the exact software commit; do not invent an arXiv identifier or DOI.
 
-### `runs_2m/calligra_ref_nosvgv/`
-Upload:
-- `pred.jsonl`
-- `train_info.json`
-- `model.pt` **or** a Release / DOI link recorded in the docs
+## Legacy artifacts
 
-### `runs/unet_scoremax/`
-Upload these files **if this row is cited in the manuscript**:
-- `pred.jsonl`
-- `train_info.json`
-- `model.pt` **or** a Release / DOI link recorded in the docs
-
-## 3) Paper snapshot
-
-Either commit these files under `paper/`:
-- `paper/manuscript.pdf`
-- `paper/source.zip`
-
-or attach them to a GitHub Release and update `paper/README.md` with the public location.
-
-## 4) Figure assets
-
-Add either:
-- figure-generation scripts; or
-- figure-source JSON / CSV / NPZ files with a short README explaining which files reproduce which figures.
-
-A simple public layout would be:
-
-```text
-figures/
-  make_roc_large.py
-  make_score_hist.py
-  data/
-    roc_large.json
-    score_hist_calligra_ft.csv
-    score_hist_templatediff.csv
-```
-
-## 5) Non-file GitHub settings
-
-These cannot be completed by a normal file commit:
-- update the GitHub **About** description so it matches the README;
-- create a GitHub **Release** for large checkpoints / predictions that should not live in git.
-
-## 6) Final public consistency check
-
-Before calling the repository complete, verify that:
-- `README.md` matches the actual code tree;
-- `docs/RESULTS_AND_ARTIFACTS.md` matches the currently released runs;
-- `docs/RUNS_MANIFEST.csv` matches the visible artifact folders;
-- public `metrics.json` and generated `tables/*.tex` agree with the manuscript, or any mismatch is explicitly explained.
+Any original run still cited needs its own complete provenance and recovered files. Some legacy run directories remain partial; the new v3 source release does not fill those historical gaps. Legacy proprietary font inputs are not assumed redistributable. Old `paper/` assets are not a v3 final draft.

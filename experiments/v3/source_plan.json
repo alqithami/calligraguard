@@ -1,0 +1,18 @@
+{
+  "study": "CFDefect expanded multi-task benchmark v3",
+  "google_fonts_commit": "66928797f271fed5ee428544e7229685e2d90127",
+  "train": ["amiri", "scheherazadenew", "lateef", "harmattan", "markazitext", "mada", "ruwudu", "arefruqaa", "reemkufi", "cairo", "mirza", "lalezar", "changa", "elmessiri", "katibeh", "alkalami", "notonaskharabic", "notosansarabic", "notokufiarabic"],
+  "development": ["tajawal", "almarai", "ibmplexsansarabic"],
+  "calibration": ["beiruti", "alexandria", "readexpro", "vazirmatn"],
+  "test_family": ["zain", "kufam", "baloobhaijaan2"],
+  "test_latin": ["sourcesans3", "sourceserif4", "roboto", "merriweather", "lora"],
+  "ancestry_groups": {
+    "amiri": "amiri_lineage",
+    "ruwudu": "amiri_lineage",
+    "notonaskharabic": "noto_arabic",
+    "notosansarabic": "noto_arabic",
+    "notokufiarabic": "noto_arabic"
+  },
+  "distribution": "Font binaries are private build inputs and excluded from public archives.",
+  "limitations": "Known source families grouped; deeper genealogical independence is not claimed. No real-defect validation exists yet."
+}
