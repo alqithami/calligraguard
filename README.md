@@ -1,54 +1,52 @@
-# CalligraGuard / CFDefect
+# CalligraGuard
 
-Research code for glyph-level defect inspection: controlled outline interventions, paired raster evidence, defect localization, type labeling, and independently calibrated false-alarm evaluation.
+**Computational closeout — 24 October 2026.** The expanded v3 benchmark is complete: **22 fits, 22 five-condition evaluations, and 12 classical configurations**. The source-available historical inspection studies and the final official **Diffenator3 1.1.4** comparison have also completed. This repository no longer describes v3 as a running study.
 
-## Current research version
+**These results do not establish a superior new inspection architecture, a uniquely correct inverse source attribution method, or production false-positive guarantees.** Computational completion is not submission readiness. No independently adjudicated 20-event revision benchmark or timed designer study has been performed.
 
-The expanded **CFDefect-v3 computational benchmark is in progress**. Its frozen scientific source is now under [`experiments/v3/`](experiments/v3/README.md). This is a research snapshot, not a completed leaderboard or submission-ready release.
+## Start here
 
-- [V3 instructions and scope](experiments/v3/README.md)
-- [Dated run snapshot](experiments/v3/provenance/RUN_SNAPSHOT_20261014.json)
-- [Current assessment and next decisions](docs/RESEARCH_STATUS.md)
-- [Legacy audit and claim corrections](docs/LEGACY_AUDIT.md)
-- [Completed development studies, kept separate from v3](docs/DEVELOPMENT_RESULTS.md)
-- [Source-font provenance](docs/DATA_PROVENANCE.md)
-- [Remaining release requirements](docs/UPLOAD_CHECKLIST.md)
+| Resource | Contents |
+|---|---|
+| [Current research status](docs/RESEARCH_STATUS.md) | Completed studies, contribution boundaries and unperformed validation |
+| [Computational closeout](docs/COMPUTATIONAL_CLOSEOUT_20261024.md) | Execution, preservation and infrastructure status |
+| [Official-tool comparison](docs/DIFFENATOR3_COMPARISON_20261024.md) | All 16 configured comparisons, native report counts and limitations |
+| [Frozen v3 source](experiments/v3/) | Original scientific code and source/data locks; no retraining during closeout |
+| [Verified results and source bundles](reproducibility/20261024/) | Completed numerical summaries, checksums, historical QA code and official-tool runner |
+| [Legacy audit](docs/LEGACY_AUDIT.md) | Why original manuscript-era artifacts are not validated current results |
 
-**Historical warning:** `cfdefect/`, `DATASET_SPLITS/`, `runs/`, `runs_split/`, `runs_2m/`, and the original `tables/` belong to the legacy experiment. An audit found invalid or invisible generated positives, destructive small-component filtering, weak family separation, and manuscript/code discrepancies. Those files are preserved, not silently overwritten. Their presence is not validation of the original paper's superiority claims. Read the audit before reusing them.
+## Two separate information contracts
 
-## What v3 adds
+**Source-available font-build QA:** both source/binary revisions, acquisition settings and rendered images are available. Direct structural, visual and dependency-aware comparison are mandatory baselines. Detecting a difference does not establish that a change is unwanted.
 
-The verified build contains **135,883 generated records**, of which **135,844** are in the primary observation-level population and **39** are separately retained as observation-only interventions. These are rendered records, not independent font families or independent physical defects.
+**Raster-only source explanation:** a trusted reference source and candidate images are available, but the original candidate source and historical patch are evaluator-only. An approximate rendering explanation is not necessarily the true editing history. Failure to find a counterexample establishes neither necessity nor infeasibility.
 
-| Partition | Primary records |
-|---|---:|
-| Training | 82,551 |
-| Development | 10,543 |
-| Normal calibration | 4,260 |
-| New Arabic source-family evaluation | 11,930 |
-| Renderer-shift evaluation | 11,912 |
-| 128-pixel native rendering | 3,979 |
-| 512-pixel native rendering | 3,985 |
-| Latin transfer | 6,684 |
+These tracks must not be merged into an information-unmatched leaderboard.
 
-There are 34 pinned font sources: 19 training, 3 development, 4 calibration, 3 new Arabic evaluation, and 5 Latin evaluation sources. Known derivatives are grouped; complete genealogical independence is not asserted. Training records derive from 1,536 distinct base glyphs; calibration uses 284 base-glyph groups.
+## Completed v3 benchmark
 
-The five defined interventions are `spur`, `notch`, `local_deformation`, `missing_mark`, and `misplaced_mark`. A notch is not claimed to sever a whole stroke. Arabic cases use isolated base-plus-combining-mark shaping, not full text-line layout validation.
+The campaign finished **17 October 2026 at 18:25:42 UTC**. Its recorded audit verified 22 fits, 110 learned model-condition evaluations, 60 classical configuration-condition evaluations, 940,500 learned per-run prediction records, 14 frozen scientific source hashes and 25 model-artifact hashes. It structurally checked 846,780 packed masks. Audit limitations are retained: it did not repeat all model inference or independently recompute every mask/ground-truth intersection.
 
-The configured comparisons are 16 pretrained supervised fits, 6 normal-only fits, and 12 classical configurations. Supervised models predict a detection score, a pixel mask, and five defect types. The normal-only methods use pinned author PatchCore and Dinomaly implementations with documented adaptations; they do not receive a query-specific clean reference at inference. Geometry conditioning is an ablation, not established methodological novelty.
+The corpus contains **135,844 primary records** plus **39 separately retained observation-only interventions**. Training has 82,551 records from 1,536 base glyphs; normal calibration has 4,260 views from 284 base-glyph groups. Renderer and resolution conditions reuse held-out parents; Latin transfer uses the same synthetic geometric mechanisms. Counts of renderings are not counts of independent real defects.
 
-## Reproduction
+The geometry variant is a controlled reference-field ablation, not an established new architecture. Results and actual false-positive rates under shift must be reported rather than selecting a favorable in-domain AUROC. Normal-only PatchCore/Dinomaly methods receive different information and supervision from referenced supervised models.
 
-Use the Python 3.11/CUDA instructions in [`experiments/v3/README.md`](experiments/v3/README.md), not the legacy root requirements. All 14 frozen scientific/configuration files were checked against the active study's source hashes before publication. The new public setup helper is separate from those scientific files and does not alter the running study.
+## Historical and production-tool findings
 
-Do not copy provenance snapshots into live output locations as completion markers. `STUDY_COMPLETE.json`, produced by an actual run after fitting and held-out evaluation, is the computational completion indicator. It is not a guarantee of publication readiness.
+Later studies examined authentic source histories, original Urdu binaries, reconstructed Malayalam masters, numerical source fitting and explicit ambiguity. Ordinary alignment, sparse fitting and source-dependency tracing remained strong controls. Four changed Urdu glyph records affect 34 rendered glyphs; dependency tracing agrees with all 27 supported source-swap text configurations. The source-available comparison is not a learned defect classifier or a designer-time study.
 
-## Evidence and limitations
+The final official Diffenator3 comparison completed **16/16 invocations**. Its native output reports the Urdu historical repair through 1,032 word-image records, and all six Malayalam reconstructions through structural differences. The tool's sampling/renderer and native thresholds differ from the earlier exhaustive FreeType comparison; these counts are not defect counts or directly matched recall. Full details and unfavorable control outcomes are retained in the comparison note.
 
-V3 held-out results are not yet released. Completed v2b and repair studies are exploratory, use different populations, and must not be pooled with v3. No real-defect study, expert adjudication, full shaping validation, or active-rendering efficiency advantage is established. Calibration reports realized image- and parent-level false positives; it does not guarantee a target FPR under distribution shift.
+## Reproducibility and preservation
 
-Font binaries, server addresses, SSH details, private credentials, and unfinished checkpoints are not included in this update. No final arXiv identifier or publication claim is supplied. The root license applies to this repository's code; third-party implementations and font inputs retain their own licenses.
+The original v3 scientific files remain byte-for-byte frozen. Public bundles add results and executed source without fonts, credentials or cloud host details. Some historical scripts retain their original workspace layout; they are provenance snapshots, not all portable entry points. Reacquire licensed inputs according to the pinned source manifests. The large model/data/prediction archives and complete native reports are privately preserved rather than committed as Git objects.
 
-## Citation
+Read [the bundle manifest](reproducibility/20261024/MANIFEST.json) and verify SHA-256 before extracting into a new directory. The 14 October README is preserved [here](docs/README_20261014.md); its running-status statements are historical.
 
-Use [`CITATION.cff`](CITATION.cff) for the software and identify the exact repository commit and experiment version used. Do not cite historical manuscript numbers as verified v3 results.
+## Original manuscript-era material
+
+`cfdefect/`, older `runs/`, tables and the original dataset/split artifacts remain for traceability. They are **historical and subject to the legacy audit**, not a replacement for the corrected v3 evidence. Do not reuse old superiority claims or treat a file's presence as proof of a validated result.
+
+## Publication state
+
+The computational phase is closed for manuscript consolidation. Expert intent labels, a blinded independent revision-event evaluation, and reviewer-time benefits are **not established**. No manuscript was rewritten as part of this closeout. The repository documents both positive and negative results without claiming that further GPU training is required to finish the completed campaigns.

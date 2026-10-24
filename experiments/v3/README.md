@@ -1,75 +1,33 @@
-# CFDefect-v3: expanded computational benchmark
+# CFDefect-v3: completed computational benchmark
 
-**Ongoing study, not final results.** This directory publishes the 14 scientific/configuration files frozen for the active benchmark. Their bytes match the original study's source hashes. The immutable source/data lock is in `provenance/EXPERIMENT_LOCK.json`; the dated status snapshot is not a live monitor.
+**Completed 17 October 2026 at 18:25:42 UTC; results published in the 24 October closeout.** This directory retains the original 14 frozen scientific/configuration files. No scientific source was changed to publish results or shut down compute.
 
-## Scope and tracks
+The exact earlier README, with detailed construction, training, evaluation and setup instructions, is preserved at [provenance/README_20261014.md](provenance/README_20261014.md). References there to an ongoing run describe the historical 14 October snapshot, not current status.
 
-| Track | Methods | Information and supervision |
-|---|---|---|
-| Supervised referenced | U-Net/ResNet-34 (5 seeds), DeepLabV3+/ResNet-50 (3), SegFormer-B2 (3) | Candidate and trusted reference rasters, explicit differences; image/mask/type training labels |
-| Reference geometry ablation | U-Net/ResNet-34 plus reference outline fields (5 seeds) | Same raster evidence plus distance/tangent/boundary fields from the trusted outline |
-| Normal-only | Author PatchCore (3), author Dinomaly (3) | Normal training images; candidate grayscale expanded to RGB at inference, no paired clean reference |
-| Classical referenced | 12 score configurations | Candidate/reference images, estimated alignment/gamma and structural/boundary residuals |
+## Results
 
-The normal-only tracks are not equal-information comparisons with referenced supervised models. PatchCore uses a recorded source-stratified budget of at most 1,024 normal images and a 1% feature coreset; Dinomaly uses the normal training pool and 10,000 iterations. Full-frame resize, score aggregation and segmentation-threshold adaptations are recorded in `normal_ad.py`. Do not describe these as an untouched reproduction of every original author's experimental setting.
+The completed audit records **22/22 fits**, **22/22 model evaluations across five conditions**, and **12/12 classical configurations across five conditions**. The result bundle contains `RESULTS_SUMMARY.json`, `COMPLETION_VERIFIED.json`, `VERIFIED_FITS.json` and `PREDICTION_INVENTORY.json`:
 
-The geometry branch is an inductive-bias ablation, not a novel contour-attention, active acquisition, or editable-segment-attribution method. It adds four dense trusted-reference fields to the U-Net input, with added first-layer weights initially zero. It does not receive injected defect type, severity, modified-point indices, or the candidate vector source as inference features.
+- [Completed results bundle](../../reproducibility/20261024/v3_completed_results.tar.xz)
+- [Bundle checksums and scope](../../reproducibility/20261024/MANIFEST.json)
+- [Current research status](../../docs/RESEARCH_STATUS.md)
 
-## Verified build
+The observed campaign's dataset metadata SHA-256 is `e9054589f930f566270cf69daa205e1740ffa81190ef25d42d1f5756f1669790`.
 
-135,883 generated records; 135,844 primary records; 39 retained observation-only interventions. Training: 82,551 records from 1,536 base glyphs. Normal calibration: 4,260 views from 284 base-glyph groups. Full counts and source partitioning are in the root README and provenance validation report.
+The aggregate learned-results SHA-256 is `df3a9605ff10dffc4090e09e223861965662eb6a5bec690ee678e6380a5ce9a1`.
 
-Arabic examples are isolated base-plus-combining-mark shapes. The three marks are U+064E, U+064F and U+0650. The defined operators are `spur`, `notch`, `local_deformation`, `missing_mark`, and `misplaced_mark`; the last two are not used for Latin. Normal controls include identity, subpixel translation, supersampling, gamma and combined changes.
+The classical-results SHA-256 is `ecbfb4e2fc53ff5a8a48a6c732d3a03bb8f3c01a4c3c9e3c7c58773a4537999c`.
 
-The renderer/resolution tests share held-out parents with `test_family`. They are controlled shifts, not additional independent families. Latin uses the same geometric generator and is synthetic transfer, not real-defect validation. Primary metrics are conditional on the declared observation being visible; retain `all_records.jsonl`, `observability_only.jsonl` and rejected-attempt accounting for broader analysis.
+## Scope
 
-## Reproduce in a new Linux/CUDA workspace
+Referenced U-Net/ResNet-34 (5 seeds), DeepLabV3+/ResNet-50 (3), SegFormer-B2 (3), reference-geometry U-Net (5), author-implementation PatchCore (3) and Dinomaly (3) constitute the 22 fits. The normal-only and referenced supervised tracks have different information/supervision. The geometry branch adds reference distance/tangent/boundary fields; it is not validated as a new source-attribution architecture.
 
-Do not run these commands over an active experiment directory. An existing maintainer-hosted run does not need to pull this repository update.
+There are 135,844 primary examples and 39 retained observation-only interventions. Renderer/resolution tests share held-out parent glyphs, and Latin examples use the same geometric intervention machinery. Actual image FPR and parent-any-view FPR must accompany nominal calibration targets. Calibration and within-family bootstrap assumptions do not imply a production or arbitrary-shift guarantee.
 
-From the repository root:
+## Reproduction
 
-```bash
-cd experiments/v3
-sha256sum -c SOURCE_SHA256SUMS
-```
+Use a new Linux/CUDA workspace and the instructions in the preserved README. Begin with `sha256sum -c SOURCE_SHA256SUMS`. Do not invoke the coordinator over an archived completed directory merely to recreate a status marker. Existing trained models and predictions are preserved in private archival backups; they are not bundled in Git.
 
-Use Python 3.11 and a CUDA-compatible NVIDIA driver. On an Ubuntu/Debian host, install the runtime libraries before setup:
+`setup_public.sh` is a separately packaged helper, not one of the frozen scientific files; its prior syntax checks are not a new clean-machine reproduction claim. `STUDY_COMPLETE.json` indicates configured computational completion, not final-paper readiness.
 
-```bash
-sudo apt-get install -y --no-install-recommends libcairo2 libegl1 libgl1 git
-PYTHON_BIN=python3.11 bash setup_public.sh
-.venv/bin/python -m unittest -v validate_and_test.EvaluatorTests
-```
-
-`setup_public.sh` is a new portable packaging helper, not part of the 14-file scientific source lock. It creates an isolated environment and checks imports; it was syntax-checked for publication but not used to rebuild the already-running environment. The frozen `requirements.txt` preserves an obsolete comment about dependency inheritance; the public helper does not inherit another research environment. It installs CUDA PyTorch explicitly and includes the repaired `tabulate`/`colorama` requirements.
-
-A complete run can be started in a detached session:
-
-```bash
-tmux new-session -d -s cfdefect-v3 'exec .venv/bin/python -u run_benchmark.py > RUN.log 2>&1'
-cat STATUS.json
-tail -n 30 -F RUN.log
-```
-
-The coordinator acquires pinned sources, builds and validates data, tests all model APIs, freezes the study, fits all 22 configurations, freezes their checkpoint registry, evaluates the held-out partitions, and runs the classical comparisons. Downloads include pretrained weights and source fonts in local acquisition caches; they are not bundled with the repository.
-
-To resume an interrupted run, first confirm that no coordinator or child training process is active; retain the unchanged sources, data, environment and saved checkpoints, then invoke the same coordinator. Do not edit source files after `EXPERIMENT_LOCK.json` is created. Resume is implemented, but arbitrary crash-point recovery has not been exhaustively fault-injection tested.
-
-`geometry_helpers.py` retains its original v2b header and standalone entry point so its hash remains identical; v3 imports its geometry primitives and runs `build_benchmark.py`, not that older standalone build.
-
-## Evaluation rules
-
-Supervised fits use 20-40 epochs with a fixed patience rule, BF16, 16-example microbatches and two-step accumulation. The final incomplete accumulation group is normalized separately. A shuffled incomplete final training microbatch is omitted to avoid singleton BatchNorm batches; all development/evaluation records remain.
-
-Checkpoint selection is fixed at 0.5 development AUROC + 0.3 positive Dice + 0.2 type macro-F1. This is not low-FPR checkpoint optimization. Normal-only methods use their recorded fixed fit budgets without defective labels.
-
-Detection thresholds use strictly greater-than comparisons against order statistics of maximum normal score per base glyph. Report both image FPR and parent-any-view FPR. Group bootstrap intervals resample base glyphs within the observed source families and condition on the chosen threshold; they do not include calibration-threshold uncertainty or uncertainty about entirely new families.
-
-Supervised mask threshold is 0.5. Normal-only and classical mask thresholds come from normal calibration map pixels, with their definitions recorded in the outputs. These are different localization protocols and must be stated in tables. Pixel AUROC from supervised outputs is a 4,096-bin histogram approximation. No real-defect realism, formal shift guarantee, runtime advantage, or method superiority is implied by passing the software tests.
-
-## Completion and release
-
-Each `runs/<method>/seed_<seed>/COMPLETE.json` certifies only that fit. `MODEL_REGISTRY_LOCK.json` precedes held-out scoring. `EVALUATION_COMPLETE.json` records per-run evaluation. `STUDY_COMPLETE.json` is written only after the configured fits, evaluations and classical results finish. It explicitly does not certify final-paper readiness.
-
-Provenance files here are historical read-only snapshots, not substitute success markers. The final predictions, masks, checkpoints, curves and dataset manifests are not published in this ongoing snapshot. See `../../docs/UPLOAD_CHECKLIST.md` for the post-run release audit.
+The audit reads compressed predictions, recomputes scalar detection/threshold metrics and checks mask structure. It does not independently re-render every mask intersection or retrain models. Retain these limitations with any numerical table.
