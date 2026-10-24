@@ -4,12 +4,14 @@
     "v3_completed_results.tar.xz": {"bytes": 16504, "sha256": "4a8cdc7dbbe72b666e2430a75231549433026d9b986c710c0c28e296e87d3b84", "git_blob_sha1": "3f9fc9fe33a41e0d1b5439593664801de527e05e", "members": 4},
     "source_qa_20261024.tar.xz": {"bytes": 13616, "sha256": "4255bd06be9f4f4d9fbec5cf15f5958f297e754e3d04891950db44c0a2c738fc", "git_blob_sha1": "16b14b747c3f655e1057fb8f211c0193f85c2fb4", "members": 6},
     "official_comparison_source.tar.xz": {"bytes": 4452, "sha256": "a25fcab2f9096fc5b0edc14d845b7b139e2e06ef7f36cc636f7c18f2307a0b3c", "git_blob_sha1": "3e614308d68c97a7b47f3fee7f26d3b7bb297e1f", "members": 3},
-    "compact_research_evidence.tar.xz": {"bytes": 10688, "sha256": "0970a16567a9717085a6e115272a0567302278cdc24947ab87dbf8c881f7135f", "git_blob_sha1": "674ee94aa7958c2b3a725561bf17247a3ebccf25", "members": 6}
+    "compact_research_evidence.tar.xz": {"bytes": 10688, "sha256": "0970a16567a9717085a6e115272a0567302278cdc24947ab87dbf8c881f7135f", "git_blob_sha1": "674ee94aa7958c2b3a725561bf17247a3ebccf25", "members": 6},
+    "constrained_sparse_code.tar.xz": {"bytes": 21704, "sha256": "e1daf471ca4825bfff5e07c249b781245c6b7215b86aac948632a9bce49a8711", "git_blob_sha1": "c982d62c447ad7a88144a31ac00aae809ad42be7", "members": 16}
   },
   "font_files_included": false,
   "private_model_and_data_backups_included": false,
   "v3_scientific_source_location": "experiments/v3",
   "original_v3_source_file_count": 14,
   "no_new_training_for_closeout": true,
+  "teardown_receipt": "TEARDOWN_VERIFIED.json",
   "scope": "Public computational record and selected executed code; large checkpoints/data and remaining original study archives preserved privately. Compact evidence is not a full raw trace distribution."
 }

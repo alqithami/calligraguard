@@ -1,0 +1,28 @@
+{
+  "record_type": "Sanitized public transcription of executed cloud and private archival verification",
+  "status": "target_instances_and_project_attached_resources_verified_absent",
+  "verified_utc": "2026-10-24T04:20:40.405330+00:00",
+  "instances_stopped_before_deletion": 2,
+  "instances_absent": 2,
+  "boot_volumes_absent": 2,
+  "floating_ips_absent": 2,
+  "virtual_network_interfaces_absent": 2,
+  "dedicated_parallel_security_group_absent": 1,
+  "other_preexisting_instances_still_present": 9,
+  "unrelated_resources_targeted": false,
+  "retained_full_boot_snapshots": {"count": 2, "states": ["stable", "stable"], "restore_drill": false, "retained_storage_may_incur_charges": true},
+  "private_archives": {
+    "main_research_20261024.tar.gz": {"compressed_bytes": 27632281115, "uncompressed_file_bytes": 36085537910, "member_count": 396218, "sha256": "ed9fe0929400ca86365d1cb74cc41043799c4f0897c692bb3afe349ec28e38e9", "verified_utc": "2026-10-24T04:11:25.787499+00:00"},
+    "parallel_research_20261024.tar.gz": {"compressed_bytes": 80089894, "uncompressed_file_bytes": 112371200, "member_count": 11208, "sha256": "c72b773155da448d1692d1c377e01daad19b2fb31115daf79f2f15ab763c7ad8", "verified_utc": "2026-10-24T03:34:38.050088+00:00"},
+    "official_diffenator3_complete_20261024.tar.gz": {"compressed_bytes": 353054, "member_count": 61, "sha256": "ccb095f6c7bff1d11ca59a6e174bd0fbcdf4bc9390c3f4ebf32ddbb94e2f756e", "verified_utc": "2026-10-24T04:04:21.991165+00:00"}
+  },
+  "archive_checks": "All included file members read back against source SHA-256 manifest; symlink targets checked; full boot snapshots preserve excluded caches/environments and hidden home state",
+  "older_project_results_on_main_machine_preserved": true,
+  "live_v3_predelete_check": {"status": "live_v3_sources_and_aggregates_unchanged", "verified_utc": "2026-10-24T04:04:20.411107+00:00", "scientific_files": 14, "fit_completion_files": 22, "study_complete": true, "active_failure_marker": false, "all_results_sha256": "df3a9605ff10dffc4090e09e223861965662eb6a5bec690ee678e6380a5ce9a1", "classical_results_sha256": "ecbfb4e2fc53ff5a8a48a6c732d3a03bb8f3c01a4c3c9e3c7c58773a4537999c"},
+  "external_tool": {"name": "Diffenator3", "version": "1.1.4", "successful_pairs": 16, "configured_pairs": 16, "completed_utc": "2026-10-24T03:37:15.515110+00:00", "known_repair_events": 2},
+  "publication_verified_before_teardown": "b5164f8191c0400e29503ab4aa3ee6374d59c1b9",
+  "new_neural_training": false,
+  "expert_revision_study_performed": false,
+  "timed_designer_study_performed": false,
+  "manuscript_started": false
+}
