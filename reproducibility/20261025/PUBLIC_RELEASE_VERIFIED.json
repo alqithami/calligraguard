@@ -1,0 +1,20 @@
+{
+  "status": "public_release_integrity_and_summary_arithmetic_passed",
+  "verified_utc": "2026-10-25T12:13:24.608030+00:00",
+  "pinned_commit": "c2aa1af2b7f816b710d96d84f3637755006d8da2",
+  "fresh_public_downloads": true,
+  "archives": [
+    {"name": "v3_completed_results.tar.xz", "sha256": "4a8cdc7dbbe72b666e2430a75231549433026d9b986c710c0c28e296e87d3b84", "members": 4},
+    {"name": "source_qa_20261024.tar.xz", "sha256": "4255bd06be9f4f4d9fbec5cf15f5958f297e754e3d04891950db44c0a2c738fc", "members": 6},
+    {"name": "official_comparison_source.tar.xz", "sha256": "a25fcab2f9096fc5b0edc14d845b7b139e2e06ef7f36cc636f7c18f2307a0b3c", "members": 3},
+    {"name": "compact_research_evidence.tar.xz", "sha256": "0970a16567a9717085a6e115272a0567302278cdc24947ab87dbf8c881f7135f", "members": 6},
+    {"name": "constrained_sparse_code.tar.xz", "sha256": "e1daf471ca4825bfff5e07c249b781245c6b7215b86aac948632a9bce49a8711", "members": 16}
+  ],
+  "python_files_syntax_checked": 19,
+  "frozen_v3_scientific_files": 14,
+  "learned_method_condition_rows": 30,
+  "classical_method_condition_rows": 60,
+  "seed_mean_sd_checks": 340,
+  "official_summary_rows": 16,
+  "not_verified": ["raw-score AUROC/FPR recalculation", "pixel intersections", "training or inference replay", "all historical traces", "full scientific data access", "human or production validation"]
+}
