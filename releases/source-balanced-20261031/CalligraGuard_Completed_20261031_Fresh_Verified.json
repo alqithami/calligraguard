@@ -1,0 +1,53 @@
+{
+  "status": "fresh_archive_integrity_build_text_render_and_final_historical_replay_passed",
+  "verified_utc": "2026-10-31T16:43:17.611892+00:00",
+  "archive": "CalligraGuard_Complete_Package_20261031.zip",
+  "archive_bytes": 31060229,
+  "archive_sha256": "98b055e14266dbaf5841cd857fbb9926e53b1985d9f1b3acd4a4c6b8f7f5d1ee",
+  "manifest_files_verified": 395,
+  "page_comparisons": {
+    "manuscript": {
+      "pages": 20,
+      "all_page_text_identical": true,
+      "all_page_renders_pixel_identical_at_72dpi": true
+    },
+    "supplement": {
+      "pages": 33,
+      "all_page_text_identical": true,
+      "all_page_renders_pixel_identical_at_72dpi": true
+    }
+  },
+  "combined_pages": 53,
+  "standalone_downloads_match_package": {
+    "CalligraGuard_Final_Paper_20261031.pdf": true,
+    "CalligraGuard_Method_Article_20261031.pdf": true,
+    "CalligraGuard_Technical_Supplement_20261031.pdf": true
+  },
+  "historical_full_session_refits": 407,
+  "historical_method_outputs_replayed": 73260,
+  "historical_thresholds_recounted": 5,
+  "conditional_property_tests_passed": 9,
+  "prior_qualification_replay_completed_before_packaging": {
+    "scores_reconstructed": 398790,
+    "full_session_refits": 83,
+    "thresholds_recounted": 165
+  },
+  "original_package_files_unchanged": true,
+  "fresh_files_changed_by_build_or_replay": [
+    "audit/METHOD_PROPERTY_TESTS.json",
+    "experiments/final_historical/results/VERIFIED.json",
+    "paper/MANUSCRIPT_AUDIT.json",
+    "paper/manuscript.pdf",
+    "paper/supplement.pdf"
+  ],
+  "font_binaries_or_original_font_sources_in_archive": false,
+  "final_pass_latex_undefined_refs_and_overfull_boxes": false,
+  "limits": [
+    "fresh scientific replay fully reoptimizes only the new 407-session historical study; prior qualification replay performed before packaging with fixed subset refits",
+    "reuses original fitting/compiler/native-acquisition routines; not independent renderer validation",
+    "no expert intent labels, timed human study or acceptance claim",
+    "historical final source correction is below raster tolerance",
+    "large raw transfer archive remains separate",
+    "no journal submission or GitHub publication of this package"
+  ]
+}

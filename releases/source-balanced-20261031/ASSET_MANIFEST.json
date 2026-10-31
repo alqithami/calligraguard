@@ -1,0 +1,43 @@
+{
+  "schema": 1,
+  "repository": "alqithami/calligraguard",
+  "planned_tag": "source-balanced-2026-10-31",
+  "title": "CalligraGuard: Source-Dependency-Balanced Adaptation for Glyph Inspection",
+  "manuscript_version": "2026-10-31",
+  "assets": {
+    "CalligraGuard_Complete_Package_20261031.zip": {
+      "bytes": 31060229,
+      "sha256": "98b055e14266dbaf5841cd857fbb9926e53b1985d9f1b3acd4a4c6b8f7f5d1ee"
+    },
+    "CalligraGuard_Method_Article_20261031.pdf": {
+      "bytes": 304209,
+      "sha256": "3812a7c20b03dfe3d38d8129fd46aff251bc3441c2cd2ecbbf1a8954800a2b91",
+      "package_member": "CalligraGuard_Completed_20261031/paper/manuscript.pdf",
+      "pages": 20
+    },
+    "CalligraGuard_Technical_Supplement_20261031.pdf": {
+      "bytes": 352987,
+      "sha256": "33669c9af6c4654a5a500180231b48ccbdc823e2241a6b7fa8916db3f8967c33",
+      "package_member": "CalligraGuard_Completed_20261031/paper/supplement.pdf",
+      "pages": 33
+    },
+    "CalligraGuard_Final_Paper_20261031.pdf": {
+      "bytes": 768999,
+      "sha256": "8392afbb889033cfa818b3158cef5878ccfefdeb7ffaa8bd6448e49fe39d2046",
+      "package_member": "CalligraGuard_Completed_20261031/paper/combined_paper_and_supplement.pdf",
+      "pages": 53
+    },
+    "CalligraGuard_Completed_20261031_Fresh_Verified.json": {
+      "bytes": 2201,
+      "sha256": "9c6a9563bd66ab25e07d07a326a7b1b71e4289e93b6bacd898aee4b490b5d006"
+    }
+  },
+  "excluded_large_transfer_archive": {
+    "name": "CalligraGuard_Source_Balance_Validation_20261028.zip",
+    "bytes": 542344645,
+    "sha256": "b5009846d394e08acca1657957f496b8f565b2ca2d21533365acba1537e5917e",
+    "status": "separate; not present in this delivered package"
+  },
+  "scope": "Exact approved manuscript and compact evidence package; not complete release of the separate raw transfer archive or older v3 checkpoints.",
+  "record_status": "expected_asset_manifest_not_a_publication_receipt"
+}

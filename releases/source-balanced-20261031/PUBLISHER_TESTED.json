@@ -1,0 +1,12 @@
+{
+  "status": "eight_local_release_safety_tests_passed",
+  "verified_utc": "2026-10-31T23:09:33.218122+00:00",
+  "tests": 8,
+  "real_network_publication_executed": false,
+  "mocked_release_lifecycle_tested": true,
+  "source_sha256": {
+    "publish_release.py": "0b5f32e12e7af9ac6f10102cf01a39f6a789f4238e01e533293d9a9133d560ef",
+    "test_release.py": "d76ab0ad27c93d550114545303f724acfd56e8ae27c3dfbd14326c1b352af68e"
+  },
+  "limits": "Mocked tests do not establish remote GitHub permission or actual asset publication."
+}

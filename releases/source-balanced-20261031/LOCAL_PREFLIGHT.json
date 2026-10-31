@@ -1,0 +1,27 @@
+{
+  "status": "local_prepublication_integrity_passed_release_upload_pending",
+  "verified_utc": "2026-10-31T23:07:14.923411+00:00",
+  "archive_sha256": "98b055e14266dbaf5841cd857fbb9926e53b1985d9f1b3acd4a4c6b8f7f5d1ee",
+  "package_members_hashed": 395,
+  "zip_file_entries": 396,
+  "standalone_pdf_identity_checked": true,
+  "pdf_pages": {
+    "CalligraGuard_Method_Article_20261031.pdf": 20,
+    "CalligraGuard_Technical_Supplement_20261031.pdf": 33,
+    "CalligraGuard_Final_Paper_20261031.pdf": 53
+  },
+  "abstract_words": 216,
+  "keywords": 6,
+  "font_binaries_or_original_font_source_files": false,
+  "credential_pattern_scan_matches": 0,
+  "credential_scan_limit": "Only listed patterns in textual members; not a formal security audit.",
+  "scientific_outputs_changed": false,
+  "scientific_rerun_performed": false,
+  "github_release_uploaded": false,
+  "journal_submission_made": false,
+  "unresolved": {
+    "title_page": "Affiliation is absent in the approved PDF; author lists Saad Alqithami and alqithami@gmail.com. Do not silently substitute an unconfirmed department or historic generated affiliation.",
+    "declarations": "Funding/resource acknowledgment, competing interests, current exclusivity and institutional/coauthor authorization not confirmed by computation.",
+    "raw_transfer_resource": "Separate 542 MB raw transfer archive not present in current runtime."
+  }
+}
