@@ -2,9 +2,7 @@
 
 ## Current manuscript: source-dependency-balanced adaptation
 
-**CalligraGuard: Source-Dependency-Balanced Adaptation for Glyph Inspection** is the completed scientific manuscript dated **31 October 2026**. It contains a 20-page main article and a 33-page technical supplement. The current contribution concerns containment of adaptation-induced collateral alarms through native source dependencies; it is not the original neural-architecture claim or a new general robust-estimation theorem.
-
-**Publication status, 1 November 2026:** the approved package has passed local prepublication integrity checks. Release records and a tested publishing helper are committed here. **The 31 MB manuscript/evidence archive and PDFs have not yet been uploaded as GitHub Release assets.** A manifest of expected files is not proof that those files are hosted. No journal submission has been made by this release preparation.
+**CalligraGuard: Source-Dependency-Balanced Adaptation for Glyph Inspection** concerns containment of adaptation-induced collateral alarms through native source dependencies; it is not a neural-architecture claim or a new general robust-estimation theorem.
 
 Start with the [versioned release preparation](releases/source-balanced-20261031/README.md), [scientific summary and claim boundary](docs/CURRENT_MANUSCRIPT_20261031.md), and [asset identities](releases/source-balanced-20261031/ASSET_MANIFEST.json).
 
